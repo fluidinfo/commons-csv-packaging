@@ -1,0 +1,32 @@
+#! /bin/sh
+## 10_remove_all_jarfiles.dpatch -- Jan-Pascal van Best <janpascal@vanbest.org>
+##
+## DP: We want to be use we do not build using jar files contained
+## DP: in the source tarball, so we start by removing all jar files.
+
+OPERATION="$1"
+DIRECTORY="$2"
+
+if [ -z "$OPERATION" ]; then
+	echo "Illegal arguments"
+	exit 1
+fi
+
+if [ -z "$DIRECTORY" ]; then
+	DIRECTORY="."
+fi
+
+case "$OPERATION" in
+  -patch)
+		echo "Removing all jar files under $DIRECTORY"
+		find $DIRECTORY -name \*.jar -exec rm {} \;
+		;;
+  -unpatch)
+		echo "Unable to magic back jar files..."
+		;;
+  *)
+		echo "Illegal command line $1 $2"
+		exit 1
+		;;
+esac
+

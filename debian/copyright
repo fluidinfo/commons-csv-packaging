@@ -1,0 +1,22 @@
+This package was debianized by Jan-Pascal van Best <janpascal@vanbest.org> on
+Tue, 19 Jun 2007 14:24:31 +0200
+
+It was downloaded using subversion from the Subversion repository at
+http://svn.apache.org/repos/asf/commons/sandbox/csv/trunk/
+
+Use 
+  debian/rules get-orig-source 
+to download the source from this location and re-create the .orig.tar.gz.
+
+Copyright Holder: Copyright 2005-2007 The Apache Software Foundation
+
+Authors:
+Henri Yandell <bayard@apache.org>, Martin van den Bemt <mvdb@apache.org>
+
+Commons-csv is licensed under the Apache License, version 2.0. On Debian
+systems, the complete text of the Apache License, version 2.0, can
+be found in `/usr/share/common-licenses/Apache-2.0'.
+
+The Debian packaging (the files under debian/) is
+Copyright 2007,2008 Jan-Pascal van Best <janpascal@vanbest.org>. It is
+also licensed under the terms of the Apache License, version 2.0.

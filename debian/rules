@@ -1,0 +1,47 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+include /usr/share/cdbs/1/rules/debhelper.mk
+include /usr/share/cdbs/1/rules/dpatch.mk
+include /usr/share/cdbs/1/class/ant.mk
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+# Use OpenJDK
+JAVA_HOME = /usr/lib/jvm/java-6-openjdk
+
+DEB_ANT_BUILD_TARGET = init compile jar javadoc
+DEB_ANT_BUILDFILE = debian/build.xml
+
+# Needed for running the unit tests
+DEB_JARS = ant-junit junit
+
+# Upstream version information
+UPSTREAM_VERSION := $(shell echo $(DEB_VERSION) | grep -o "^.*svn[0-9]\+")
+UPSTREAM_RELEASE := $(shell echo $(UPSTREAM_VERSION) | grep -o "^[^+]\+")
+UPSTREAM_BASENAME = $(DEB_SOURCE_PACKAGE)-$(UPSTREAM_RELEASE)
+
+install/libcommons-csv-java::
+	install -m 0644 -D target/$(UPSTREAM_BASENAME).jar $(CURDIR)/debian/libcommons-csv-java/usr/share/java/commons-csv-$(UPSTREAM_VERSION).jar
+	dh_link /usr/share/java/commons-csv-$(UPSTREAM_VERSION).jar /usr/share/java/commons-csv.jar
+
+install/libcommons-csv-java-doc::
+	install -d $(CURDIR)/debian/libcommons-csv-java-doc/usr/share/doc/libcommons-csv-java-doc
+	cp -r dist/docs/api $(CURDIR)/debian/libcommons-csv-java-doc/usr/share/doc/libcommons-csv-java-doc/
+
+remove-source:
+	rm -f checkstyle.xml LICENSE.txt maven.xml NOTICE.txt pom.xml
+	rm -f project.properties project.xml
+	rm -rf debian/patched
+	rm -rf src target dist
+
+restore-from-source: remove-source
+	echo $(DEB_VERSION)
+	tar xzf ../commons-csv_$(UPSTREAM_VERSION).orig.tar.gz
+
+get-orig-source:
+	debian/get-orig-source
+
+upload:
+	cd .. ; dupload -t vanbest commons-csv_$(DEB_VERSION)_$(DEB_HOST_ARCH).changes

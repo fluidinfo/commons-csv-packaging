@@ -1,0 +1,27 @@
+#!/bin/sh
+
+# Retrieves the svn revision indicated in the Debian changelog from the Apache
+# subversion repository and builds the .orig.tar.gz file.
+
+REVISION=`dpkg-parsechangelog | grep "^Version:" | grep -o "+svn[0-9]\+" | grep -o "[0-9]\+"`
+BASEURL="http://svn.apache.org/repos/asf/commons/sandbox/csv/trunk/"
+
+TEMPDIR=`mktemp -d`
+DESTDIR=$PWD/..
+
+cd $TEMPDIR
+echo "Checking out revision $REVISION from $BASEURL to $TEMPDIR"
+svn co -q -r $REVISION "$BASEURL" 
+
+cd trunk
+REVISION=`svn info | grep "^Revision:" | grep -o "[0-9]\+"`
+DESTFILE="${DESTDIR}/commons-csv_0.1-SNAPSHOT+svn${REVISION}.orig.tar.gz"
+
+echo "Creating $DESTFILE"
+tar czf "$DESTFILE" --exclude=".svn" .
+
+echo "Cleaning up $TEMPDIR"
+rm -rf "$TEMPDIR"
+
+LATEST_UPSTREAM_REVISION=`svn info -R $BASEURL | grep -i "last changed rev:" | grep -o "[0-9]\+" | sort -n | tail -n 1`
+echo "Using revision $REVISION; Latest revision in upstream repository: $LATEST_UPSTREAM_REVISION"

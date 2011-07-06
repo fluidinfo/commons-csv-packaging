@@ -1,0 +1,24 @@
+commons-csv (0.1-SNAPSHOT+svn678580-1) unstable; urgency=low
+
+  [ Kumar Appaiah ]
+  * Add Homepage field to debian/control.
+  * Add Vcs-Svn and Vcs-Browser to debian/control.
+
+  [ Jan-Pascal van Best ]
+  * New upstream revision
+  * Bump standards-version to 3.8.0
+  * Added debian/build.xml for building, since commons-csv now uses a 
+    Maven-based build system.
+  * Remove full Apache license from debian/copyright and referred to 
+    /usr/share/common-licenses instead.
+  * Added DM-Upload-Allowed: yes to debian/control.
+  * Compile with OpenJDK (instead of gcj).
+  * Mo
+
+ -- Jan-Pascal van Best <janpascal@vanbest.org>  Wed, 10 Sep 2008 20:58:00 +0200
+
+commons-csv (0.1-SNAPSHOT+svn558885-1) unstable; urgency=low
+
+  * Initial release, based on subversion revision 558885 (2007-07-25) (Closes: #429779)
+
+ -- Jan-Pascal van Best <janpascal@vanbest.org>  Fri, 27 Jul 2007 09:45:30 +0200
