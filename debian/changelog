@@ -1,3 +1,9 @@
+commons-csv (0.1-SNAPSHOT+svn1065950-1~ppa1~lucid1) lucid; urgency=low
+
+  * New upstream release, based on revision 1065950 (2011-02-01)
+
+ --  <esteve@fluidinfo.com>  Wed, 06 Jul 2011 10:01:04 +0200
+
 commons-csv (0.1-SNAPSHOT+svn678580-1) unstable; urgency=low
 
   [ Kumar Appaiah ]
